@@ -1,34 +1,56 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 const main = async () => {
-  // const post = await prisma.post.create({
+  // const createUser = await prisma.user.create({
   //   data: {
-  //     title: "Post1",
-  //     content: "New content",
-  //     author: "Anik",
-  //     ageRestriction: 19,
+  //     email: "user@gmail.com",
+  //     username: "user1",
+  //     role: Role.user,
   //   },
   // });
-  // console.log(post);
-  const getAllPost = await prisma.post.findMany({
-    take: 5,
-    cursor: {
-      id: 3,
+  // console.log(createUser);
+
+  // const createProfile = await prisma.profile.create({
+  //   data: {
+  //     userId: 1,
+  //     bio: "My life my rules",
+  //   },
+  // });
+
+  // console.log(createProfile);
+
+  // const createCategory = await prisma.category.create({
+  //   data: {
+  //     name: "Software engineering",
+  //   },
+  // });
+
+  const updatePost = await prisma.post.create({
+    data: {
+      title: "Tailwind v.4 alpha max",
+      content:
+        "This is superb impressive. We have to try it as fast as possible",
+      authorId: 1,
+      postCategory: {
+        // create: {
+        //   category: {
+        //     connect: {
+        //       id: 1,
+        //     },
+        //   },
+        // },
+
+        create: [
+          { categoryId: 1 },
+          { categoryId: 2 },
+          { categoryId: 3 },
+          { categoryId: 4 },
+        ],
+      },
     },
   });
-  console.log({ getAllPost });
-
-  // const updatePost = await prisma.post.update({
-  //   where: {
-  //     id: 1,
-  //   },
-  //   data: {
-  //     title: "Updated title1",
-  //     content: "Content updated",
-  //   },
-  // });
 };
 
 main();
