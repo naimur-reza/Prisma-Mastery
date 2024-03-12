@@ -13,6 +13,20 @@ const main = async () => {
     .post();
 
   console.log(userPost);
+
+  // get specific user post which is are published true
+
+  const userPublishedPost = await prisma.user.findMany({
+    include: {
+      post: {
+        where: {
+          published: true,
+        },
+      },
+    },
+  });
+
+  console.dir(userPublishedPost, { depth: Infinity });
 };
 
 main();
