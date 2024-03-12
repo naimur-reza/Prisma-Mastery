@@ -34,7 +34,20 @@ const filtering = async () => {
     },
   });
 
-  console.log(orFiltering);
+  //   console.log(orFiltering);
+  const notFiltering = await prisma.post.findMany({
+    where: {
+      NOT: [
+        {
+          title: {
+            contains: "max",
+          },
+        },
+      ],
+    },
+  });
+
+  console.log(notFiltering);
 };
 
 filtering();
