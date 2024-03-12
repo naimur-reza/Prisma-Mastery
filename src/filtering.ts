@@ -47,7 +47,16 @@ const filtering = async () => {
     },
   });
 
-  console.log(notFiltering);
+  //   console.log(notFiltering);
+
+  const startsWith = await prisma.user.findMany({
+    where: {
+      email: {
+        startsWith: "m",
+      },
+    },
+  });
+  console.log(startsWith);
 };
 
 filtering();
