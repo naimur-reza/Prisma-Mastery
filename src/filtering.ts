@@ -56,7 +56,21 @@ const filtering = async () => {
       },
     },
   });
-  console.log(startsWith);
+  // console.log(startsWith);
+
+  const email = ["gmail.com", "yahoo.com"];
+
+  const searchUser = await prisma.user.findMany({
+    where: {
+      OR: email.map((item) => ({
+        email: {
+          endsWith: item,
+        },
+      })),
+    },
+  });
+
+  console.log(searchUser);
 };
 
 filtering();
